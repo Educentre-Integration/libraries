@@ -1,5 +1,5 @@
 (function (global) {
-    function EducentreStorage() {
+    function EducentreActivity() {
         this.listeners = {};
 
         this.generateId = function () {
@@ -24,7 +24,7 @@
      * @param {object} data - Données à envoyer.
      * @param {function} callback - Fonction appelée avec la réponse.
      */
-    EducentreStorage.prototype.request = function (action, data, callback) {
+    EducentreActivity.prototype.request = function (action, data, callback) {
         const requestId = this.generateId();
         const message = { requestId, action, data };
         this.listeners[requestId] = callback;
@@ -36,30 +36,30 @@
      * @param {string} action - Action ou type de message.
      * @param {object} data - Données à envoyer.
      */
-    EducentreStorage.prototype.send = function (action, data) {
+    EducentreActivity.prototype.send = function (action, data) {
         const message = { action, data };
         window.parent.postMessage(message, '*');
     };
 
-    EducentreStorage.prototype.sendScore = function (score, callback) {
+    EducentreActivity.prototype.sendScore = function (score, callback) {
         this.request('score', { score }, response => callback(response));
     };
 
-    EducentreStorage.prototype.getConfiguration = function (callback) {
+    EducentreActivity.prototype.getConfiguration = function (callback) {
         this.request('get-configuration', {}, response => callback(response));
     };
 
-    EducentreStorage.prototype.saveConfiguration = function (configuration, callback) {
+    EducentreActivity.prototype.saveConfiguration = function (configuration, callback) {
         this.request('save-configuration', { configuration }, response => callback(response));
     };
 
-    EducentreStorage.prototype.getStorage = function (callback) {
+    EducentreActivity.prototype.getStorage = function (callback) {
         this.request('list', {}, response => callback(response));
     };
 
-    EducentreStorage.prototype.saveStorage = function (storage, callback) {
+    EducentreActivity.prototype.saveStorage = function (storage, callback) {
         this.request('save-storage', { storage }, response => callback(response));
     };
 
-    global.EducentreStorage = EducentreStorage;
+    global.EducentreActivity = EducentreActivity;
 })(window);
