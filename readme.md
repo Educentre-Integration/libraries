@@ -5,7 +5,7 @@
 Intégrez vos jeux et vos applications pour apprenants avec Educentre 
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/educentre-integration/libraries@latest/activity/script.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/educentre-integration/libraries@latest/activity/bridge.min.js"></script>
 ```
 
 ```js
