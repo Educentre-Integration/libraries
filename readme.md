@@ -11,14 +11,37 @@ Intégrez vos jeux et vos applications pour apprenants avec Educentre
 ```js
 const edac = new EducentreActivity();
 
-// Espace apprenant : vous pouvez lire et enregistrer des données pour un groupe entier
-edac.getStorage(0.8);
-edac.saveStorage(0.8);
+/* ===================================================
+Espace APPRENANT : vous pouvez lire et enregistrer des données pour un groupe entier.
+Les réponses respectent l'interface suivante :
+interface EducentreStorageResponse {
+    token: string;
+    student: {
+        fullname?: string;
+    };
+    certificationStorage?: any;
+}
+*/
+edac.getStorage((response) => {
+    console.log(response);
+});
 
-// Espace apprenant : vous pouvez soumettre une note à une évaluation sur Educentre. La note doit être comprise entre 0 et 1.
-edac.sendScore(0.8);
+const storage = ...;
+edac.saveStorage(storage, (response) => {
+    console.log(response);
+});
 
-// Espace contributeur : dans la console de l'activité pédagogique, vous pouvez enregistrer des paramètres généraux grâce à la configuration
-edac.getConfiguration(0.8);
-edac.saveConfiguration(0.8);
+// Espace APPRENANT : vous pouvez soumettre une note à une évaluation sur Educentre. La note doit être comprise entre 0 et 1.
+const score = 0.8; // Equivalent de 16 sur 20
+edac.sendScore(score);
+
+/* ===================================================
+Espace CONTRIBUTEUR : dans la console de l'activité pédagogique, vous pouvez enregistrer des paramètres généraux grâce à la configuration
+*/
+edac.getConfiguration((response) => {
+    console.log(response);
+});
+edac.saveConfiguration(configuration, (response) => {
+    console.log(response);
+});
 ```
