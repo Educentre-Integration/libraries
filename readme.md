@@ -1,47 +1,85 @@
-# Intégration avec Educentre
+# Welcome to Educentre Integration!
 
-### Activités pédagogiques
+### 🎓 Educational Activities
 
-Intégrez vos jeux et vos applications pour apprenants avec Educentre 
+Ready to bring your educational games and apps to life? Integrate them seamlessly with Educentre!
 
 ```html
-<script src="https://cdn.jsdelivr.net/gh/educentre-integration/libraries@latest/activity/bridge.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/educentre-integration/libraries@v1.0/activity/bridge.min.js"></script>
 ```
 
 ```js
-const edac = new EducentreActivity();
+// Start the magic!
+const eda = new EducentreActivityBridge();
 
 /* ===================================================
-Espace APPRENANT : vous pouvez lire et enregistrer des données pour un groupe entier.
-Les réponses respectent l'interface suivante :
-interface EducentreStorageResponse {
+LEARNER Space: Unlock the power of group data!
+You can read and save data for an entire group.
+The responses follow this awesome interface:
+
+interface Database {
     token: string;
-    student: {
-        fullname?: string;
+    school: {
+        id: string;
+        name: string;
     };
-    certificationStorage?: any;
+    certification: {
+        id: string;
+        name: string;
+    };
+    promotion: {
+        id: string;
+        name: string;
+    };
+    configuration: any;
+    storage: any;
+    student: {
+        email: string;
+        firstname: string;
+        lastname: string;
+        fullname: string;
+    };
 }
 */
-edac.getStorage((response) => {
-    console.log(response);
+eda.getDatabase((response) => {
+    // response is of type Database
+    console.log("Database loaded!", response);
 });
 
-const storage = ...;
-edac.saveStorage(storage, (response) => {
-    console.log(response);
+const storage = { ... };
+eda.saveStorage(storage, (response) => {
+    console.log("Storage saved!", response);
 });
 
-// Espace APPRENANT : vous pouvez soumettre une note à une évaluation sur Educentre. La note doit être comprise entre 0 et 1.
-const score = 0.8; // Equivalent de 16 sur 20
-edac.sendScore(score);
+// LEARNER Space: Celebrate success!
+// You can submit a score for an evaluation on Educentre. The score must be between 0 and 1.
+const score = 0.8; // Equivalent to 16 out of 20 (Great job!)
+eda.sendScore(score, (response) => {
+    console.log("Score submitted! 🚀", response);
+});
 
 /* ===================================================
-Espace CONTRIBUTEUR : dans la console de l'activité pédagogique, vous pouvez enregistrer des paramètres généraux grâce à la configuration
+CONTRIBUTOR Space: Customize your experience!
+In the educational activity console, you can save general settings via configuration.
+Perfect for tailoring the activity for each training session.
 */
-edac.getConfiguration((response) => {
-    console.log(response);
+eda.getConfiguration((response) => {
+    console.log("Configuration loaded!", response);
 });
-edac.saveConfiguration(configuration, (response) => {
-    console.log(response);
+eda.saveConfiguration(configuration, (response) => {
+    console.log("Configuration saved!", response);
 });
+
+/* ===================================================
+UTILITIES: Keep it secret, keep it safe!
+You can obfuscate and deobfuscate data, super useful for protecting sensitive info if you use localStorage.
+*/
+const data = { foo: 'bar' };
+const secret = eda.obfuscate(data);
+console.log("Shhh... it's a secret:", secret); // Obfuscated string
+
+const original = eda.deobfuscate(secret);
+console.log("And we're back!", original); // { foo: 'bar' }
 ```
+
+Happy Integrating!
